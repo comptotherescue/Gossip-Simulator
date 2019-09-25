@@ -47,6 +47,7 @@ defmodule Gossip.PushSum.Starter do
         init_node = Process.whereis(String.to_atom(Integer.to_string(Enum.random(1..num))))
         info = Process.info init_node
         name = info[:registered_name]
+        Logger.info("#{name}")
         if Process.alive?(init_node) do
         send(init_node, {:infectmsg, 0, 0})
         end
