@@ -11,6 +11,13 @@ defmodule Gossip.Entry do
                     topology,
                     String.to_integer(n)
                     )
+                "pushsum"->
+                    topology = Enum.at(args, 1)
+                    n = Enum.at(args, 0)
+                    Gossip.PushSum.Starter.start_pushsum(
+                    topology,
+                    String.to_integer(n)
+                    )
             end
         true -> IO.puts("Argument error!")
     end 

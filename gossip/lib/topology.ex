@@ -45,7 +45,7 @@ defmodule Gossip.Network do
       end
     end)
 
-    res
+    result
   end
 
 
