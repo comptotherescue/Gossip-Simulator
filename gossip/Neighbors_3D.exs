@@ -7,9 +7,15 @@ defmodule Get_3DNeighbors do
             y = n-1
             {x,y,z}
         else
-            y = div(intermediate,n)
-            x = rem(intermediate,n) - 1
-            {x,y,z}
+           if rem(intermediate, n) == 0 do
+                x = n - 1
+                y = div(intermediate, n) - 1
+                {x,y,z}
+            else
+                y = div(intermediate,n)
+                x = rem(intermediate,n) - 1
+                {x,y,z}
+            end
         end
     end
 
@@ -30,6 +36,7 @@ defmodule Get_3DNeighbors do
     def convertTupleToID({x,y,z},n), do: z*n*n + y*n + x + 1
 
     def getNeighbors({x,y,z},class,n) do
+        IO.puts class
         case class do
             4 -> 
                 [convertTupleToID({x+1,y,z},n),convertTupleToID({x-1,y,z},n),convertTupleToID({x,y+1,z},n),convertTupleToID({x,y-1,z},n),convertTupleToID({x,y,z-1},n),convertTupleToID({x,y,z+1},n)]
@@ -68,7 +75,8 @@ defmodule Get_3DNeighbors do
 
             2 ->
                 cond do
-                        {x,z} == {0,0} -> 
+                        
+                        x == 0 and z ==0 -> 
                             [convertTupleToID({x+1,y,z},n),convertTupleToID({x,y+1,z},n),convertTupleToID({x,y-1,z},n),convertTupleToID({x,y,z+1},n),convertTupleToID({x+n-1,y,z},n),convertTupleToID({x,y,z+n-1},n)] #For case 1
                         {x,z} == {0,n-1} ->
                             [convertTupleToID({x+1,y,z},n),convertTupleToID({x,y-1,z},n),convertTupleToID({x,y+1,z},n),convertTupleToID({x,y,z-1},n),convertTupleToID({x+n-1,y,z},n),convertTupleToID({x,y,z-n+1},n)] #For case 2
@@ -76,9 +84,8 @@ defmodule Get_3DNeighbors do
                             [convertTupleToID({x-1,y,z},n),convertTupleToID({x,y+1,z},n),convertTupleToID({x,y-1,z},n),convertTupleToID({x,y,z+1},n),convertTupleToID({x-n+1,y,z},n),convertTupleToID({x,y,z+n-1},n)] #For case 3
                         {x,z} == {n-1,n-1} ->
                             [convertTupleToID({x-1,y,z},n),convertTupleToID({x,y-1,z},n),convertTupleToID({x,y+1,z},n),convertTupleToID({x,y,z-1},n),convertTupleToID({x-n+1,y,z},n),convertTupleToID({x,y,z-n+1},n)] #For case 4
-                end
 
-                cond do
+                
                         {x,y} == {0,0} -> 
                             [convertTupleToID({x+1,y,z},n),convertTupleToID({x,y+1,z},n),convertTupleToID({x,y,z+1},n),convertTupleToID({x,y,z-1},n),convertTupleToID({x+n-1,y,z},n),convertTupleToID({x,y+n-1,z},n)] #For case 5
                         {x,y} == {0,n-1} ->
@@ -88,9 +95,9 @@ defmodule Get_3DNeighbors do
                         {x,y} == {n-1,n-1} ->
                             [convertTupleToID({x-1,y,z},n),convertTupleToID({x,y-1,z},n),convertTupleToID({x,y,z+1},n),convertTupleToID({x,y,z-1},n),convertTupleToID({x-n+1,y,z},n),convertTupleToID({x,y-n+1,z},n)] #For case 8
 
-                end
+                
 
-                cond do
+                
                         {y,z} == {0,0} -> 
                             [convertTupleToID({x+1,y,z},n),convertTupleToID({x-1,y,z},n),convertTupleToID({x,y+1,z},n),convertTupleToID({x,y,z+1},n),convertTupleToID({x,y+n-1,z},n),convertTupleToID({x,y,z+n-1},n)] #For case 9
                         {y,z} == {0,n-1} ->

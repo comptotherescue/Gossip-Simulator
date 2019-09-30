@@ -13,13 +13,13 @@ defmodule Gossip.Starter do
             Gossip.Network.get_rand_2d(Enum.to_list(1..n))
 
             "3d_torus" ->
-            Gossip.Network.random_3d_torus(Enum.to_list(1..n))
+            Gossip.Network.get_3d_torus(n)
 
             "honeycomb" ->
-            Gossip.Network.get_honeycomb(Enum.to_list(1..n))
+            Gossip.Network.get_honeycomb(n)
 
             "rand_honeycomb" ->
-            Gossip.Network.get_rand_honeycomb(Enum.to_list(1..n))
+            Gossip.Network.get_rand_honeycomb(n)
 
             true ->
             System.halt()

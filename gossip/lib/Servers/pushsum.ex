@@ -12,7 +12,7 @@
           Task.start(fn ->
             start_pushsum(node, neighbours)
           end)
-          pd = elem(task, 1)
+
         coverge_progress(3, s + node, w + 1, node, elem(task, 1))
     end
 
