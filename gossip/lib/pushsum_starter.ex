@@ -26,7 +26,7 @@ defmodule Gossip.PushSum.Starter do
         end
         
         num = length(topology)
-
+         
         for i <- 1..num do
             neighbors = Enum.at(topology, i - 1)
             spawn(fn ->
@@ -62,10 +62,12 @@ defmodule Gossip.PushSum.Starter do
                 coverge_progress(num - 1)
             after
             3000 ->
-                coverge_progress(num - 1)
+                Logger.info("Node unable to converge. Skipping process.")
+                coverge_progress(num-1)
             end
 
         true ->
+         Logger.info("Converged!")
             nil
         end
     end

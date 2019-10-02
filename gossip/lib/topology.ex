@@ -12,7 +12,7 @@ defmodule Gossip.Network do
       cond do
         x == 1 -> [x + 1]
         x == length(nlist) -> [x - 1]
-        true -> [x + 1, x - 1]
+        true -> [x - 1, x + 1]
       end
     end)
   end
@@ -31,13 +31,14 @@ defmodule Gossip.Network do
           :math.sqrt(a + b)
         end)
       end)
-    
+    Logger.info("Finished map")
       result =
-      Enum.map(distance_map, fn neighbours ->
+      Enum.map(distance_map,fn neighbours ->
         Enum.filter(0..(length(neighbours) - 1), fn i ->
           Enum.at(neighbours, i) < 0.1 && Enum.at(neighbours, i) != 0
-        end)
+         end)
       end)
+      Logger.info("Finished distance map")
     Enum.map(result, fn peers ->
       if length(peers) == 0 do
         IO.puts("Disconnected network created! exiting...")
@@ -48,6 +49,7 @@ defmodule Gossip.Network do
     result
   end
 
+ 
   def get_3d_torus(n) do 
       m = round(:math.pow(n, 1 / 3))
       n = trunc(:math.pow(m,3))
@@ -69,7 +71,8 @@ defmodule Gossip.Network do
   end
 
   def get_rand_honeycomblst(x, n, nlst) do
-    getNeighbors_comb(x, n, nlst) ++ [Enum.random(1..n)]
+     x = getNeighbors_comb(x, n, nlst) ++ [Enum.random(1..nlst)]
+     x
   end
 
   def getNeighbors(id, n) do

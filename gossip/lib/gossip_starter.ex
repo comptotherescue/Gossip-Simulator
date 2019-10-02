@@ -26,10 +26,11 @@ defmodule Gossip.Starter do
         end
 
         num = length(topology)
-
+        
         for i <- 1..num do
-            neighbors = Enum.at(topology, i - 1)
 
+            neighbors = Enum.at(topology, i - 1)
+    
             spawn(fn ->
                 Gossip.Rumor.start_link(i, neighbors)
             end)
@@ -62,6 +63,7 @@ defmodule Gossip.Starter do
                 coverge_progress(num - 1)
             after
             3000 ->
+            Logger.info("Node unable to converge. Skipping process.")
                 coverge_progress(num - 1)
             end
 
